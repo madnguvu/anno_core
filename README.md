@@ -378,22 +378,22 @@ const response = await chat(message, transportKey);
 await logMetrics({ transportKey, userRating: response.rating });
 ```
 
-📊 Comparison
+## 📊 Comparison
 
-Feature  			Anno Transport Keys  	Raw API Keys  	LangChain 	LiteLLM 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Multi-provider support 	✅ Built-in  		❌ Manual 	✅ Yes  		✅ Yes 
-API key encryption 		✅ AES-256-CBC  		❌ No  		❌ No  		❌ No 
-Multi-tenant auth	 	✅ JWT + RBAC  		❌ No  		❌ No  		❌ No 
-Frontend included	 	✅ React UI  		❌ No  		❌ No  		❌ No 
-5-minute setup		✅ Yes			❌ No		⚠️ Complex	⚠️ Complex
-Database-backed		✅ PostgreSQL		❌ No		⚠️ Optional	❌ No 
-Rate limiting		✅ Per key 		❌ Manual		⚠️ Optional	⚠️ Optional
-Streaming			✅ SSE			✅ Yes		✅ Yes		✅ Yes
-Self-hosted		✅ Yes			N/A		✅ Yes		✅ Yes 
-License			✅ MIT			N/A		✅ MIT		⚠️ Varies 
+| Feature | Anno Transport Keys | Raw API Keys | LangChain | LiteLLM |
+|---------|---------------------|--------------|-----------|---------|
+| **Multi-provider support** | ✅ Built-in | ❌ Manual | ✅ Yes | ✅ Yes |
+| **API key encryption** | ✅ AES-256-CBC | ❌ No | ❌ No | ❌ No |
+| **Multi-tenant auth** | ✅ JWT + RBAC | ❌ No | ❌ No | ❌ No |
+| **Frontend included** | ✅ React UI | ❌ No | ❌ No | ❌ No |
+| **5-minute setup** | ✅ Yes | ❌ No | ⚠️ Complex | ⚠️ Complex |
+| **Database-backed** | ✅ PostgreSQL | ❌ No | ⚠️ Optional | ❌ No |
+| **Rate limiting** | ✅ Per key | ❌ Manual | ⚠️ Optional | ⚠️ Optional |
+| **Streaming** | ✅ SSE | ✅ Yes | ✅ Yes | ✅ Yes |
+| **Self-hosted** | ✅ Yes | N/A | ✅ Yes | ✅ Yes |
+| **License** | ✅ MIT | N/A | ✅ MIT | ⚠️ Varies |
 
-anno_core is perfect if you want LangChain's flexibility + LiteLLM's routing + your own auth + zero setup time.
+**Sweet Spot:** LangChain's flexibility + LiteLLM's routing + your own auth + zero setup time.
 
 ---
 
