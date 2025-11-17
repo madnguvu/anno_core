@@ -241,12 +241,10 @@ while (true) {
 ```
 
 ---
-
-## 🏗️ Architecture
-
+Architecture
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                     Your Application                          │
+│                     Your Application                         │
 │  (React, Vue, Mobile App, CLI, Chatbot, etc.)                │
 └────────────────────────┬─────────────────────────────────────┘
                          │
@@ -254,13 +252,13 @@ while (true) {
                          │
                          ▼
 ┌──────────────────────────────────────────────────────────────┐
-│              Anno Transport Keys Server                       │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  1. Validate Transport Key (bcrypt)                 │    │
-│  │  2. Decrypt LLM Provider API Key (AES-256-CBC)      │    │
-│  │  3. Route to Provider                               │    │
-│  └─────────────────────────────────────────────────────┘    │
+│              Anno Transport Keys Server                      │
+│                                                              │
+│  ┌─────────────────────────────────────────────────────┐     │
+│  │  1. Validate Transport Key (bcrypt)                 │     │
+│  │  2. Decrypt LLM Provider API Key (AES-256-CBC)      │     │
+│  │  3. Route to Provider                               │     │
+│  └─────────────────────────────────────────────────────┘     │
 └────────────┬─────────┬──────────┬──────────┬─────────────────┘
              │         │          │          │
       ┌──────▼──┐ ┌────▼────┐ ┌──▼─────┐ ┌──▼─────┐
@@ -268,9 +266,7 @@ while (true) {
       │ GPT-4o  │ │ Claude  │ │ Gemini │ │Custom  │
       └─────────┘ └─────────┘ └────────┘ └────────┘
 ```
-
-### Database Schema (4 Tables)
-
+Database Schema (4 Tables)
 ```sql
 -- Multi-tenant organizations
 organizations (org_id, org_name, created_at)
@@ -292,14 +288,12 @@ transport_key_providers (
   base_url, deployment, api_version, enabled
 )
 ```
-
-**Design Philosophy:** Minimal schema, maximum flexibility.
-
+Design Philosophy:** Minimal schema, maximum flexibility.
 ---
 
-## 🚀 Use Cases
+ Use Cases
 
-### 1. **SaaS Applications**
+ 1. **SaaS Applications**
 
 Your users want to use their own LLM keys (not yours):
 
@@ -378,26 +372,26 @@ const response = await chat(message, transportKey);
 await logMetrics({ transportKey, userRating: response.rating });
 ```
 
-📊 Comparison
+Comparison
 
-Feature  			Anno Transport Keys  	Raw API Keys  	LangChain 	LiteLLM 
+Feature  			            Anno Transport Keys  	Raw API Keys  	LangChain 	  LiteLLM 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Multi-provider support 	✅ Built-in  		❌ Manual 	✅ Yes  		✅ Yes 
-API key encryption 		✅ AES-256-CBC  		❌ No  		❌ No  		❌ No 
-Multi-tenant auth	 	✅ JWT + RBAC  		❌ No  		❌ No  		❌ No 
-Frontend included	 	✅ React UI  		❌ No  		❌ No  		❌ No 
-5-minute setup		✅ Yes			❌ No		⚠️ Complex	⚠️ Complex
-Database-backed		✅ PostgreSQL		❌ No		⚠️ Optional	❌ No 
-Rate limiting		✅ Per key 		❌ Manual		⚠️ Optional	⚠️ Optional
-Streaming			✅ SSE			✅ Yes		✅ Yes		✅ Yes
-Self-hosted		✅ Yes			N/A		✅ Yes		✅ Yes 
-License			✅ MIT			N/A		✅ MIT		⚠️ Varies 
+Multi-provider support 	  ✅ Built-in  		      ❌ Manual 	    ✅ Yes  		  ✅ Yes 
+API key encryption 		    ✅ AES-256-CBC  		  ❌ No  		    ❌ No  		    ❌ No 
+Multi-tenant auth	 	      ✅ JWT + RBAC  		    ❌ No  		      ❌ No  		  ❌ No 
+Frontend included	 	      ✅ React UI  		      ❌ No  		    ❌ No  		    ❌ No 
+5-minute setup		        ✅ Yes			          ❌ No		        ⚠️ Complex	  ⚠️ Complex
+Database-backed		        ✅ PostgreSQL		    ❌ No		        ⚠️ Optional	  ❌ No 
+Rate limiting		          ✅ Per key 		        ❌ Manual		    ⚠️ Optional	  ⚠️ Optional
+Streaming			            ✅ SSE			          ✅ Yes		      ✅ Yes		    ✅ Yes
+Self-hosted		            ✅ Yes			          N/A		          ✅ Yes		    ✅ Yes 
+License			              ✅ MIT			          N/A		          ✅ MIT	    	⚠️ Varies 
 
 anno_core is perfect if you want LangChain's flexibility + LiteLLM's routing + your own auth + zero setup time.
 
 ---
 
-## 🛠️ Tech Stack
+Tech Stack
 
 - **Backend:** Node.js 18+, Express.js
 - **Frontend:** React 18+, TypeScript, Vite
@@ -409,7 +403,7 @@ anno_core is perfect if you want LangChain's flexibility + LiteLLM's routing + y
 
 ---
 
-## 📚 Documentation
+Documentation
 
 - **[QUICKSTART.md](./QUICKSTART.md)** - 5-minute setup guide
 - **[DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)** - Complete API reference
@@ -418,7 +412,7 @@ anno_core is perfect if you want LangChain's flexibility + LiteLLM's routing + y
 
 ---
 
-## 🤝 Contributing
+Contributing
 
 We welcome contributions! Here's how:
 
@@ -439,7 +433,7 @@ npm run dev  # Start in development mode
 
 ---
 
-## 🔒 Security
+Security
 
 ### Reporting Vulnerabilities
 
@@ -461,9 +455,9 @@ We'll respond within 48 hours.
 
 ---
 
-## 📈 Roadmap
+Roadmap
 
-### ✅ v1.0 (Current)
+✅ v1.0 (Current)
 - [x] Multi-provider support (OpenAI, Anthropic, Google, Azure)
 - [x] Transport key creation/management
 - [x] JWT authentication
@@ -473,7 +467,7 @@ We'll respond within 48 hours.
 - [x] AES-256-CBC encryption
 - [x] PostgreSQL backend
 
-### 🚧 v1.1 (Next)
+ v1.1 (Next)
 - [ ] Natural language routing (auto-select best provider)
 - [ ] Cost tracking & analytics dashboard
 - [ ] Webhook integrations
@@ -482,7 +476,7 @@ We'll respond within 48 hours.
 - [ ] Docker deployment
 - [ ] Kubernetes manifests
 
-### 🔮 v2.0 (Future)
+ v2.0 (Future)
 - [ ] Multi-model consensus (query 3 models, synthesize answer)
 - [ ] Adaptive routing (learn from user feedback)
 - [ ] Custom model hosting (integrate local LLMs)
@@ -490,29 +484,30 @@ We'll respond within 48 hours.
 - [ ] Real-time collaboration
 - [ ] Enterprise SSO (SAML, OAuth)
 
-**Want a feature?** [Open an issue](https://github.com/madnguvu/anno_core/issues)!
+**Want a feature?** 
+[Open an issue](https://github.com/madnguvu/anno_core/issues)!
 
 ---
 
-## 🎓 Learn More
+Learn More
 
-### Tutorials
+### Tutorials (coming soon)
 - [Build a Chatbot with Transport Keys](./docs/tutorial-chatbot.md) (Coming soon)
 - [Multi-Provider Cost Optimization](./docs/tutorial-cost-optimization.md) (Coming soon)
 - [Production Deployment Guide](./docs/tutorial-production.md) (Coming soon)
 ---
 
-## 💼 Enterprise Features
+Enterprise Features
 
 Need more? I'd love to help.  
 
 **Contact:** 
 Matthew DiFrancesco 
 difran@gmail.com
-+1 ------Fourty4Zero ###2ninetyNine-7ATE2ATE
+
 ---
 
-## 📜 License
+License
 
 **MIT License** 
 
@@ -520,7 +515,7 @@ difran@gmail.com
 
 ---
 
-## 🙏 Acknowledgments
+Acknowledgments
 
 Built with inspiration from:
 - **Stripe** - For showing how great developer experience drives adoption
@@ -532,9 +527,9 @@ Special thanks to the open source community for making this possible.
 
 ---
 
-## 🌟 Star Us!
+🌟 Star Us!
 
-If Anno Transport Keys helps you build better AI applications, **please star this repo**! ⭐
+If Anno_core's Transport Keys helps for you to build better AI applications, **please star this repo**! ⭐
 
 It helps others discover the project and motivates us to keep improving it.
 
