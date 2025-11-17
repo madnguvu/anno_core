@@ -1,6 +1,6 @@
-anno_core's "Transport Keys"
+# Anno Transport Keys
 
-One key. Any LLM. Zero vendor lock-in.
+**One key. Any LLM. Zero vendor lock-in.**
 
 Stop juggling API keys. Stop hardcoding providers. Stop rewriting code when models change.
 
@@ -39,13 +39,13 @@ if (provider === 'openai') {
 } else if (provider === 'google') {
   // Completely different API structure...
 }
-// 🔥 Your codebase is now coupled to every provider's SDK
+// Your codebase is now coupled to every provider's SDK
 ```
 
 **There has to be a better way.**
 
 ```javascript
-//With Anno Transport Keys: One unified API
+// ✅ With Anno Transport Keys: One unified API
 const response = await fetch('http://localhost:3009/api/relay/chat', {
   method: 'POST',
   headers: {
@@ -57,14 +57,16 @@ const response = await fetch('http://localhost:3009/api/relay/chat', {
   })
 });
 
-//Provider switching? Just change a setting. Zero code changes.
+// ✅ Provider switching? Just change a setting. Zero code changes.
 ```
 
 ---
 
-What You Get
+## What You Get
 
-One Key, Infinite Providers, swap while in-chat with 1 model, next message is a different model, different provider, context injection makes the user experience seemless.
+### One Key, Infinite Providers
+
+Swap while in-chat with 1 model, next message is a different model, different provider, context injection makes the user experience seamless.
 
 Create a single `tkp_*` transport key that routes to **any** LLM provider:
 - OpenAI (GPT-4o, GPT-4o-mini, GPT-3.5-turbo)
@@ -73,21 +75,21 @@ Create a single `tkp_*` transport key that routes to **any** LLM provider:
 - Azure OpenAI (your deployments)
 - **Any OpenAI-compatible API** (Ollama, LM Studio, custom endpoints)
 
-Multi-Tenant Out of the Box
+### Multi-Tenant Out of the Box
 
 - JWT authentication
 - Organization-based isolation
 - Role-based access control (admin, user)
 - Each user can have multiple transport keys - each transport keys can have multiple provider configurations stored, and the active flag is where the magic happens when your next message hits the realy out.  Activity, preferences, jobs, permissions, organization associations....  
 
-**Security by Default**
+### Security by Default
 
 - **AES-256-CBC encryption** for all LLM provider API keys
 - **bcrypt hashing** for transport keys (cost factor 10)
 - **JWT tokens** with configurable expiration (default 7 days)
 - Environment-based secrets (never commit keys)
 
-5-Minute Setup
+### 5-Minute Setup
 
 ```bash
 git clone https://github.com/your-org/anno_core.git
@@ -100,7 +102,7 @@ cp .env.example .env
 npm start
 ```
 
-That's it.** You now have:
+**That's it.** You now have:
 - Running API server (http://localhost:3009)
 - React frontend (http://localhost:5173)
 - Admin account (admin@localhost / admin123)
@@ -108,9 +110,9 @@ That's it.** You now have:
 
 ---
 
-See It In Action
+## See It In Action
 
-  Create a Transport Key (Frontend)
+### Create a Transport Key (Frontend)
 
     1. Navigate to http://localhost:5173
     2. Login with `admin@localhost` / `admin123`
@@ -122,9 +124,9 @@ See It In Action
         - Provider API Key: sk-proj-your-openai-key
     5. Click "Create"
 
-Result: You get a transport key like `tkp_abc123def456...`
+**Result:** You get a transport key like `tkp_abc123def456...`
 
-Use Your Transport Key (API)
+### Use Your Transport Key (API)
 
 ```bash
 Chat with any LLM using your transport key
@@ -159,9 +161,9 @@ curl -X POST http://localhost:3009/api/relay/chat \
 
 ---
 
-Core Features
+## Core Features
 
- 1. **Provider Abstraction**
+### 1. Provider Abstraction
 
 Switch providers without touching your application code:
 
@@ -182,7 +184,7 @@ const chat = async (message) => {
 // Application code? Unchanged. Zero downtime.
 ```
 
-2. **Cost Optimization**
+### 2. Cost Optimization
 
 Different keys for different use cases:
 
@@ -199,7 +201,7 @@ const bulkKey = 'tkp_bulk_gemini...'; // Gemini Flash ($0.075/1M input tokens)
 
 **Result:** 60-90% cost reduction vs. using a single model for everything, without transport keys switching "in session" on 3rd party sofware is not possible in 90+ percent of cases (estimated).  Deploy the anno_core as your "man-in-the-middle" goto relay service or application, giving you full control of the pipeline and when and how to change the destination.
 
-3. **Multi-Provider Reliability**
+### 3. Multi-Provider Reliability
 
 Set up fallback chains:
 
@@ -242,11 +244,10 @@ while (true) {
 
 ---
 
-## 🏗️ Architecture
-
+## Architecture
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                     Your Application                          │
+│                     Your Application                         │
 │  (React, Vue, Mobile App, CLI, Chatbot, etc.)                │
 └────────────────────────┬─────────────────────────────────────┘
                          │
@@ -254,13 +255,13 @@ while (true) {
                          │
                          ▼
 ┌──────────────────────────────────────────────────────────────┐
-│              Anno Transport Keys Server                       │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  1. Validate Transport Key (bcrypt)                 │    │
-│  │  2. Decrypt LLM Provider API Key (AES-256-CBC)      │    │
-│  │  3. Route to Provider                               │    │
-│  └─────────────────────────────────────────────────────┘    │
+│              Anno Transport Keys Server                      │
+│                                                              │
+│  ┌─────────────────────────────────────────────────────┐     │
+│  │  1. Validate Transport Key (bcrypt)                 │     │
+│  │  2. Decrypt LLM Provider API Key (AES-256-CBC)      │     │
+│  │  3. Route to Provider                               │     │
+│  └─────────────────────────────────────────────────────┘     │
 └────────────┬─────────┬──────────┬──────────┬─────────────────┘
              │         │          │          │
       ┌──────▼──┐ ┌────▼────┐ ┌──▼─────┐ ┌──▼─────┐
@@ -268,9 +269,7 @@ while (true) {
       │ GPT-4o  │ │ Claude  │ │ Gemini │ │Custom  │
       └─────────┘ └─────────┘ └────────┘ └────────┘
 ```
-
 ### Database Schema (4 Tables)
-
 ```sql
 -- Multi-tenant organizations
 organizations (org_id, org_name, created_at)
@@ -292,14 +291,13 @@ transport_key_providers (
   base_url, deployment, api_version, enabled
 )
 ```
-
 **Design Philosophy:** Minimal schema, maximum flexibility.
 
 ---
 
-## 🚀 Use Cases
+## Use Cases
 
-### 1. **SaaS Applications**
+### 1. SaaS Applications
 
 Your users want to use their own LLM keys (not yours):
 
@@ -378,7 +376,7 @@ const response = await chat(message, transportKey);
 await logMetrics({ transportKey, userRating: response.rating });
 ```
 
-## 📊 Comparison
+## Comparison
 
 | Feature | Anno Transport Keys | Raw API Keys | LangChain | LiteLLM |
 |---------|---------------------|--------------|-----------|---------|
@@ -397,7 +395,7 @@ await logMetrics({ transportKey, userRating: response.rating });
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend:** Node.js 18+, Express.js
 - **Frontend:** React 18+, TypeScript, Vite
@@ -409,7 +407,7 @@ await logMetrics({ transportKey, userRating: response.rating });
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - **[QUICKSTART.md](./QUICKSTART.md)** - 5-minute setup guide
 - **[DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)** - Complete API reference
@@ -418,7 +416,7 @@ await logMetrics({ transportKey, userRating: response.rating });
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Here's how:
 
@@ -439,7 +437,7 @@ npm run dev  # Start in development mode
 
 ---
 
-## 🔒 Security
+## Security
 
 ### Reporting Vulnerabilities
 
@@ -461,9 +459,9 @@ We'll respond within 48 hours.
 
 ---
 
-## 📈 Roadmap
+## Roadmap
 
-### ✅ v1.0 (Current)
+### v1.0 (Current)
 - [x] Multi-provider support (OpenAI, Anthropic, Google, Azure)
 - [x] Transport key creation/management
 - [x] JWT authentication
@@ -473,7 +471,7 @@ We'll respond within 48 hours.
 - [x] AES-256-CBC encryption
 - [x] PostgreSQL backend
 
-### 🚧 v1.1 (Next)
+### v1.1 (Next)
 - [ ] Natural language routing (auto-select best provider)
 - [ ] Cost tracking & analytics dashboard
 - [ ] Webhook integrations
@@ -482,7 +480,7 @@ We'll respond within 48 hours.
 - [ ] Docker deployment
 - [ ] Kubernetes manifests
 
-### 🔮 v2.0 (Future)
+### v2.0 (Future)
 - [ ] Multi-model consensus (query 3 models, synthesize answer)
 - [ ] Adaptive routing (learn from user feedback)
 - [ ] Custom model hosting (integrate local LLMs)
@@ -490,29 +488,30 @@ We'll respond within 48 hours.
 - [ ] Real-time collaboration
 - [ ] Enterprise SSO (SAML, OAuth)
 
-**Want a feature?** [Open an issue](https://github.com/madnguvu/anno_core/issues)!
+**Want a feature?** 
+[Open an issue](https://github.com/madnguvu/anno_core/issues)!
 
 ---
 
-## 🎓 Learn More
+## Learn More
 
-### Tutorials
+### Tutorials (coming soon)
 - [Build a Chatbot with Transport Keys](./docs/tutorial-chatbot.md) (Coming soon)
 - [Multi-Provider Cost Optimization](./docs/tutorial-cost-optimization.md) (Coming soon)
 - [Production Deployment Guide](./docs/tutorial-production.md) (Coming soon)
 ---
 
-## 💼 Enterprise Features
+## Enterprise Features
 
 Need more? I'd love to help.  
 
 **Contact:** 
 Matthew DiFrancesco 
 difran@gmail.com
-+1 ------Fourty4Zero ###2ninetyNine-7ATE2ATE
+
 ---
 
-## 📜 License
+## License
 
 **MIT License** 
 
@@ -520,7 +519,7 @@ difran@gmail.com
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Built with inspiration from:
 - **Stripe** - For showing how great developer experience drives adoption
@@ -532,15 +531,15 @@ Special thanks to the open source community for making this possible.
 
 ---
 
-## 🌟 Star Us!
+## Star Us!
 
-If Anno Transport Keys helps you build better AI applications, **please star this repo**! ⭐
+If Anno_core's Transport Keys helps for you to build better AI applications, **please star this repo!**
 
 It helps others discover the project and motivates us to keep improving it.
 
 ---
 
-## 📞 Contact
+## Contact
 
 - **GitHub Issues:** [Report bugs or request features](https://github.com/madnguvu/anno_core/issues)
 - **Email:** difran@gmail.com (Matthew DiFrancesco = creator)
