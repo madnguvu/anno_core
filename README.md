@@ -1,6 +1,6 @@
-# Anno Transport Keys
+#anno_core – Multi-tenant transport keys & auth for LLM agents (the missing Auth0 for AI)
 
-**One key. Any LLM. Zero vendor lock-in.**
+**One key. Any LLM. Zero vendor lock-in.  Multi-provider, multi-model, swap either in-chat.*
 
 Stop juggling API keys. Stop hardcoding providers. Stop rewriting code when models change.
 
