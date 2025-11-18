@@ -4,9 +4,10 @@
 
 Stop juggling API keys. Stop hardcoding providers. Stop rewriting code when models change.
 
-Anno's Transport Keys** is the missing abstraction layer for AI applications.  In my original project, of which the core has been forked for your review and development needs here as anno_core, has incredibly powerful capabilities and ultra-high performance that really is the main reason why I am making my first publicly accessible project available.  This stack is fast.  Postgres has blown me away in regards to my needs as building from the bottom up, and I wish I remembered of whom or what turned me onto it a while back, but thank you for doing so.  I can't wait to get to the moment to simply dive head first into getting up to speed in all that is postgres.  That DB tech is what makes this little starter project worth sharing in the first place.  Enjoy. - MattD
+Anno's Transport Keys** is the missing abstraction layer for AI applications.  
+This project is the core of my larger efforts, of a fast and straight forward scaffalding to use that has multi-tenancy all ready to go reducing overall effort of development.  Postgres as the backend make this core ensemble pretty solid for creating enterprise applications.  The concept of transport keys, as a first class citizen was the solution for creating a purpose based routing layer for what started as just an MCP server and database, I found myself wanting to use a master API tied to the user. 1 to 1, multi-tenancy for the front-end and crud management interfaces for the users, to setup "API keys".  I wanted the API keys to be unique per transport method, which allowed me to create a dual chat interface, that could allow different models of LLMs from different providers, side by side, while they both had access to my memories, logged to the database of chats with LLMs that go through my relay.  I point to the localhost, on the 3009 (API server side) the transport header has my transport_key, transport key is tied to the providers table, as each key can have multiple API configurations saved to it, and when the server sees my API key, looks up the status of which route is active, and send my request on its way to the LLM provider of choice.  In the other chat window, or using a vscode plugin that lets you use a custom IP and can function on a localized network, or 5 different chat clients, for example, all the routing is quick and seemless.  If you manage your transport keys with the included web interface, you can change the active route for each key and the next transmission out will send your request to the provider of your choice.  What makes this incredibly powerful is that with some cleverness you can have what appears to have infinite context as by controlling the relay (man in the middle) you can inject context, and tool calling instructions, results from database of RAG/Memories with (due to bow worthy performance of postgres) with, you may as well call it zero delay, because if you ever notice any lag it would be on the LLM Providers side, I think the entire process when you hit send is under 20ms for the transmission out.  With a little effort you can have what I have....you can have it all!  I hope you enjoy this as much as I have working on it.  
 
-BTW, I am interested to collaborate with someone that finds this project interesting, I have a ton of implemented components that I would consider opening up to the community if there is actual traction with this project.  
+Interested to collab?  Let me know. 
 
 https://opensource.org/licenses/MIT)
 https://nodejs.org/)
@@ -515,7 +516,7 @@ difran@gmail.com
 
 **MIT License** 
 
-**TL;DR:** You can use this commercially, modify it, distribute it. Just keep the copyright notice.
+**TL;DR:** You can use this commercially, modify it, distribute it. Just keep the copyright notice.  And there is a highfive, a preferred highfive, if we ever happen to meet.  It's in the license, you'll see...   
 
 ---
 
@@ -531,7 +532,7 @@ Special thanks to the open source community for making this possible.
 
 ---
 
-## Star Us!
+## Star Me!
 
 If Anno_core's Transport Keys helps for you to build better AI applications, **please star this repo!**
 
